@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Color Blocks V20</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<div class="top">🎮 Color Blocks V20 战争进化版</div>
+
+<div id="grid"></div>
+
+<div class="panel">
+
+  <button onclick="skillExpand()">⚡ 技能扩张</button>
+  <button onclick="skillAttack()">💥 清除敌方</button>
+  <button onclick="nextTurn()">▶ 下一回合</button>
+
+  <p>🟦 蓝：<span id="blue"></span></p>
+  <p>🟥 红：<span id="red"></span></p>
+  <p>🟩 绿：<span id="green"></span></p>
+
+  <p id="status">🌍 世界运行中</p>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
