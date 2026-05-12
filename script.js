@@ -1,122 +1,84 @@
-const SIZE = 14;
-let grid = [];
+let current = generateCase();
+let score = 0;
+let memory = [];
 
-// 🧠 能量系统
-let energy = {
-  blue: 50,
-  red: 50,
-  green: 50
-};
+// 🧠 初始化
+function load() {
+  current = generateCase();
 
-// 初始化
-function init() {
+  document.getElementById("story").innerHTML =
+    "❓ " + current.q;
 
-  let g = document.getElementById("grid");
-
-  for (let i = 0; i < SIZE * SIZE; i++) {
-
-    let cell = document.createElement("div");
-    cell.className = "cell";
-
-    let r = Math.random();
-
-    if (r < 0.33) cell.classList.add("blue");
-    else if (r < 0.66) cell.classList.add("red");
-    else cell.classList.add("green");
-
-    grid.push(cell);
-    g.appendChild(cell);
-  }
-
-  update();
+  document.getElementById("log").innerHTML = "";
+  score = 0;
+  memory = [];
 }
 
-// ⚡ 技能1：扩张
-function skillExpand() {
+load();
 
-  energy.blue -= 10;
+// 🤖 AI判断系统（升级版）
+function ask() {
 
-  for (let i = 0; i < grid.length; i++) {
+  let q = document.getElementById("q").value;
+  if (!q) return;
 
-    if (Math.random() < 0.2) {
-      grid[i].className = "cell blue";
-    }
-  }
+  memory.push(q);
 
-  update();
+  let type = analyze(q);
+
+  let res = judge(type);
+
+  document.getElementById("log").innerHTML +=
+    `<p>你：${q}</p><p>AI：${res.text}</p>`;
+
+  score += res.score;
+
+  document.getElementById("q").value = "";
 }
 
-// 💥 技能2：清除敌方
-function skillAttack() {
+// 🧠 语义识别
+function analyze(q) {
 
-  energy.blue -= 20;
+  if (/死|杀|自杀/.test(q)) return "death";
+  if (/时间|未来/.test(q)) return "time";
+  if (/童年|记忆/.test(q)) return "memory";
+  if (/实验|AI/.test(q)) return "logic";
+  if (/身份|是谁/.test(q)) return "identity";
 
-  grid.forEach(c => {
-
-    if (c.classList.contains("red") && Math.random() < 0.3) {
-      c.className = "cell green";
-    }
-  });
-
-  update();
+  return "unknown";
 }
 
-// ▶ AI回合（核心）
-function nextTurn() {
+// 🧠 AI推理反馈（V4升级）
+function judge(type) {
 
-  aiExpand("red");
-  aiExpand("green");
+  if (type === "death")
+    return {text:"🟡 接近事件核心", score:2};
 
-  energy.red += 5;
-  energy.green += 5;
-  energy.blue += 3;
+  if (type === "memory")
+    return {text:"🔥 你触碰到关键结构", score:4};
 
-  update();
+  if (type === "time")
+    return {text:"🧠 时间线是关键", score:4};
+
+  if (type === "identity")
+    return {text:"🟢 你开始接近真相", score:3};
+
+  return {text:"❌ 无关信息", score:-1};
 }
 
-// 🤖 AI扩张逻辑（进化版）
-function aiExpand(color) {
+// 💡 AI提示（动态）
+function hint() {
 
-  grid.forEach(c => {
-
-    if (Math.random() < 0.1 + energy[color] / 200) {
-      c.className = "cell " + color;
-    }
-  });
-}
-
-// 📊 统计
-function update() {
-
-  let b=0,r=0,g=0;
-
-  grid.forEach(c => {
-
-    if (c.classList.contains("blue")) b++;
-    if (c.classList.contains("red")) r++;
-    if (c.classList.contains("green")) g++;
-  });
-
-  document.getElementById("blue").innerText = b;
-  document.getElementById("red").innerText = r;
-  document.getElementById("green").innerText = g;
-
-  checkWin(b,r,g);
-}
-
-// 🏆 胜利
-function checkWin(b,r,g) {
-
-  if (b > 150) {
-    document.getElementById("status").innerText = "🟦 你统治了世界！";
-  }
-  if (r > 150) {
-    document.getElementById("status").innerText = "🟥 红色胜利";
-  }
-  if (g > 150) {
-    document.getElementById("status").innerText = "🟩 绿色胜利";
+  if (score < 3) {
+    alert("🧠 提示：关注事件发生原因");
+  } else if (score < 8) {
+    alert("🟢 提示：时间和记忆很重要");
+  } else {
+    alert("🔥 你已经接近真相结构");
   }
 }
 
-// 启动
-init();
+// 🔄 新故事
+function next() {
+  load();
+}

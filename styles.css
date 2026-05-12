@@ -3,41 +3,35 @@ body {
   font-family: Arial;
   background: #0b0f1a;
   color: white;
+  text-align: center;
 }
 
 .top {
-  text-align: center;
   padding: 10px;
   background: #111a2e;
+  color: #4da3ff;
 }
 
-#grid {
-  display: grid;
-  grid-template-columns: repeat(14, 1fr);
-  grid-template-rows: repeat(14, 1fr);
-  width: 100vw;
-  height: 70vh;
+.box {
+  padding: 20px;
+  font-size: 18px;
 }
 
-.cell {
-  border: 1px solid rgba(255,255,255,0.05);
-  transition: 0.2s;
-}
-
-.blue { background: #4da3ff; }
-.red { background: #ff4d4d; }
-green { background: #4dff88; }
-
-.panel {
-  text-align: center;
+input {
+  width: 70%;
   padding: 10px;
 }
 
 button {
-  margin: 5px;
   padding: 10px;
+  margin: 5px;
   background: #4da3ff;
   border: none;
   color: white;
-  border-radius: 10px;
+  border-radius: 8px;
+}
+
+#log {
+  font-size: 12px;
+  opacity: 0.8;
 }

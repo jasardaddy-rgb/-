@@ -3,30 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Color Blocks V20</title>
+<title>海龟汤 V4 · AI无限模式</title>
 <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
-<div class="top">🎮 Color Blocks V20 战争进化版</div>
+<div class="top">🧠 海龟汤 V4 · AI无限推理</div>
 
-<div id="grid"></div>
+<div class="box" id="story"></div>
 
-<div class="panel">
+<input id="q" placeholder="输入你的问题">
+<button onclick="ask()">提问</button>
 
-  <button onclick="skillExpand()">⚡ 技能扩张</button>
-  <button onclick="skillAttack()">💥 清除敌方</button>
-  <button onclick="nextTurn()">▶ 下一回合</button>
+<div id="log"></div>
 
-  <p>🟦 蓝：<span id="blue"></span></p>
-  <p>🟥 红：<span id="red"></span></p>
-  <p>🟩 绿：<span id="green"></span></p>
+<button onclick="hint()">💡 AI提示</button>
+<button onclick="next()">🔄 新故事</button>
 
-  <p id="status">🌍 世界运行中</p>
-
-</div>
-
+<script src="engine.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
